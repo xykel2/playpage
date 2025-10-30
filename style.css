@@ -11,15 +11,34 @@ body {
 
 .container {
   text-align: center;
-  max-width: 500px;
+  max-width: 700px;
   background: white;
-  padding: 30px;
+  padding: 40px;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  overflow-y: auto;
+  max-height: 90vh;
 }
 
-#new-line {
+#poem-title {
+  margin-bottom: 5px;
+}
+
+#poem-author {
+  color: #555;
+  margin-top: 0;
+  font-style: italic;
+}
+
+pre {
+  text-align: left;
+  white-space: pre-wrap;
+  line-height: 1.6;
   margin-top: 20px;
+}
+
+#new-poem {
+  margin-top: 25px;
   padding: 10px 20px;
   font-size: 1em;
   cursor: pointer;
@@ -29,6 +48,6 @@ body {
   border-radius: 5px;
 }
 
-#new-line:hover {
+#new-poem:hover {
   background-color: #3d684a;
 }

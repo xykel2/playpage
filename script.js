@@ -1,27 +1,35 @@
-const poetryLineElement = document.getElementById("poetry-line");
-const newLineButton = document.getElementById("new-line");
+const titleEl = document.getElementById("poem-title");
+const authorEl = document.getElementById("poem-author");
+const textEl = document.getElementById("poem-text");
+const newPoemBtn = document.getElementById("new-poem");
 
-async function getRandomLine() {
+async function getRandomPoem() {
   try {
-    // Fetch random poem from PoetryDB
+    titleEl.textContent = "Loading...";
+    authorEl.textContent = "";
+    textEl.textContent = "";
+
     const response = await fetch("https://poetrydb.org/random");
     const poems = await response.json();
 
     if (!poems || !poems.length) {
-      poetryLineElement.textContent = "Couldn't find any poems.";
+      titleEl.textContent = "Couldn't find any poems.";
       return;
     }
 
     const poem = poems[0];
-    const randomLine = poem.lines[Math.floor(Math.random() * poem.lines.length)];
-    poetryLineElement.textContent = `"${randomLine}" — ${poem.author}`;
+    titleEl.textContent = poem.title || "Untitled";
+    authorEl.textContent = poem.author ? `by ${poem.author}` : "";
+    textEl.textContent = poem.lines.join("\n");
   } catch (error) {
-    poetryLineElement.textContent = "Error fetching poetry. Try again!";
+    titleEl.textContent = "Error fetching poem";
+    authorEl.textContent = "";
+    textEl.textContent = "Try again later.";
     console.error(error);
   }
 }
 
-newLineButton.addEventListener("click", getRandomLine);
+newPoemBtn.addEventListener("click", getRandomPoem);
 
-// Load one line when the page first loads
-getRandomLine();
+// Load one poem on first visit
+getRandomPoem();
